@@ -14,10 +14,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          package-name: bbcmb
+          package-name: BBC Message Boxes
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.release_created }}
-      - run: zip myfile.zip src/
+      - run: zip -r -j myfile.zip src/
         if: ${{ steps.release.outputs.release_created }}
       - uses: actions/upload-release-asset@v1
         env:
