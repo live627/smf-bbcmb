@@ -1,13 +1,13 @@
 (function (document, sceditor) {
 	'use strict';
-	var dom = sceditor.dom;
 	for (var c of ['error', 'warning', 'okay', 'info'])
 	{
 		sceditor.command.set(
 			c, {
-				exec: function() {
-					this.wysiwygEditorInsertHtml('<div class="' + c + '_bbc">', '</div>');
-				},
+				state: function (parent, firstBlock)
+				{
+					return sceditor.dom.closest(firstBlock, '.' + this + '_bbc') ? 1 : 0;
+				}.bind(c),
 				txtExec: ['[' + c + ']', '[/' + c + ']']
 			}
 		);
