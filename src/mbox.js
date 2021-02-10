@@ -1,48 +1,39 @@
-sceditor.formats.bbcode.set(
-	'error', {
-		tags: {
-			div: {
-				class: 'error_bbc'
+(function (document, sceditor) {
+	'use strict';
+	var dom = sceditor.dom;
+	for (var c of ['error', 'warning', 'okay', 'info'])
+	{
+		sceditor.command.set(
+			c, {
+				exec: function() {
+					this.wysiwygEditorInsertHtml('<div class="' + c + '_bbc">', '</div>');
+				},
+				txtExec: ['[' + c + ']', '[/' + c + ']']
 			}
-		},
-		isInline: false,
-		format: "[error]{0}[/error]",
-		html: '<div class="error_bbc">{0}</div>'
-	}
-);
-sceditor.formats.bbcode.set(
-	'warning', {
-		tags: {
-			div: {
-				class: 'warning_bbc'
+		);
+		sceditor.formats.bbcode.set(
+			c, {
+				tags: {
+					div: {
+						class: c + '_bbc'
+					}
+				},
+				isInline: false,
+				format: '[' + c + ']{0}[/' + c + ']',
+				html: '<div class="' + c + '_bbc">{0}</div>'
 			}
-		},
-		isInline: false,
-		format: "[warning]{0}[/warning]",
-		html: '<div class="warning_bbc">{0}</div>'
+		);
 	}
-);
-sceditor.formats.bbcode.set(
-	'okay', {
-		tags: {
-			div: {
-				class: 'okay_bbc'
-			}
-		},
-		isInline: false,
-		format: "[okay]{0}[/okay]",
-		html: '<div class="okay_bbc">{0}</div>'
-	}
-);
-sceditor.formats.bbcode.set(
-	'info', {
-		tags: {
-			div: {
-				class: 'info_bbc'
-			}
-		},
-		isInline: false,
-		format: "[info]{0}[/info]",
-		html: '<div class="info_bbc">{0}</div>'
-	}
-);
+	sceditor.plugins.mbox = function ()
+	{
+		var editor;
+		this.init = function ()
+		{
+			editor = this;
+		}
+		this.signalReady = function ()
+		{
+			editor.css(mboxCss);
+		};
+	};
+})(document, sceditor);

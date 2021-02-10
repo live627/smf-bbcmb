@@ -48,11 +48,25 @@ class MessageBoxesIntegration
 		loadCSSFile('mbox.css');
 	}
 
+	public static function sce_options(&$sce_options)
+	{
+		$sce_options['plugins'] = ($sce_options['plugins'] != '' ? $sce_options['plugins'] . ',' : '') . 'mbox';
+	}
+
 	public static function bbc_buttons(&$buttons)
 	{
-		global $txt;
+		global $settings, $txt;
 
 		loadCSSFile('mbox.css');
+		addJavaScriptVar(
+			'mboxCss',
+			str_replace(
+				['..', "\n", "\t"],
+				[$settings['default_theme_url'], '', ''],
+				file_get_contents($settings['default_theme_dir'] . '/css/mbox.css')
+			),
+			true
+		);
 		loadJavaScriptFile('mbox.js', array('minimize' => true));
 		loadLanguage('MessageBoxes');
 		$temp = array();
@@ -68,26 +82,18 @@ class MessageBoxesIntegration
 						array(),
 						array(
 							'code' => 'error',
-							'before' => '[error]',
-							'after' => '[/error]',
 							'description' => $txt['error_bbc'],
 						),
 						array(
 							'code' => 'warning',
-							'before' => '[warning]',
-							'after' => '[/warning]',
 							'description' => $txt['warning_bbc'],
 						),
 						array(
 							'code' => 'okay',
-							'before' => '[okay]',
-							'after' => '[/okay]',
 							'description' => $txt['okay_bbc'],
 						),
 						array(
 							'code' => 'info',
-							'before' => '[info]',
-							'after' => '[/info]',
 							'description' => $txt['info_bbc'],
 						),
 					)

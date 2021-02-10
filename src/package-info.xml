@@ -9,6 +9,7 @@
 	<install for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
 		<readme parsebbc="true">readme.txt</readme>
 		<hook hook="integrate_bbc_codes" function="MessageBoxesIntegration::bbc_codes" file="$sourcedir/Class-MessageBoxes.php" />
+		<hook hook="integrate_sceditor_options" function="MessageBoxesIntegration::sce_options" file="$sourcedir/Class-MessageBoxes.php" />
 		<hook hook="integrate_bbc_buttons" function="MessageBoxesIntegration::bbc_buttons" file="$sourcedir/Class-MessageBoxes.php" />
 		<require-file name="Class-MessageBoxes.php" destination="$sourcedir" />
 		<require-file name="MessageBoxes.english.php" destination="$themedir/languages" />
@@ -26,6 +27,7 @@
 
 	<uninstall for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
 		<hook hook="integrate_bbc_codes" function="MessageBoxesIntegration::bbc_codes" file="$sourcedir/Class-MessageBoxes.php" reverse="true" />
+		<hook hook="integrate_sceditor_options" function="MessageBoxesIntegration::sce_options" file="$sourcedir/Class-MessageBoxes.php" reverse="true" />
 		<hook hook="integrate_bbc_buttons" function="MessageBoxesIntegration::bbc_buttons" file="$sourcedir/Class-MessageBoxes.php" reverse="true" />
 		<remove-file name="$sourcedir/Class-MessageBoxes.php" />
 		<remove-file name="$themedir/languages/MessageBoxes.english.php" />
