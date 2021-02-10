@@ -15,7 +15,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: bbcmb
-          command: github-release
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.release_created }}
       - run: zip myfile.zip src/
