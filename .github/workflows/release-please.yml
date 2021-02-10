@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+env:
+  FORCE_COLOR: 1
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: bbcmb
+          command: github-release
+      - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.release_created }}
+      - run: zip myfile.zip src/
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./myfile.zip
+          asset_name: bbc_message_boxes_${{ steps.release.outputs.major }}-${{ steps.release.outputs.minor }}-${{ steps.release.outputs.patch }}.zip
+          asset_content_type: application/zip
+        if: ${{ steps.release.outputs.release_created }}
