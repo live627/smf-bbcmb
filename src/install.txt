@@ -12,4 +12,4 @@ This adds the following new BB codes to your forum:
 [*][font=monospace][nobbc][okay]content[/okay][/nobbc][/font]
 [*][font=monospace][nobbc][info]content[/info][/nobbc][/font]
 
-Theere are no settings and no permissions; everyone can use these bbcodes.
+There are no settings and no permissions; everyone can use these bbcodes.
